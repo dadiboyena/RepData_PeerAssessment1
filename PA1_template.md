@@ -1,7 +1,8 @@
 # Reproducible Research: Peer Assessment 1
 
-
 ## Loading and preprocessing the data
+    ###In this preprocessing step, working directory was set, data was unzipped and lattice package 
+    is being utilized
 
 ```r
 getwd()
@@ -43,6 +44,29 @@ activity$date <- as.Date(activity$date, "%Y-%m-%d")
 
 
 ## What is mean total number of steps taken per day?
+
+```r
+StepsTotal <- aggregate(steps ~ date, data = activity, sum, na.rm = TRUE)
+hist(StepsTotal$steps, main = "Total steps by day", xlab = "day", col = "green")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
+
+```r
+mean(StepsTotal$steps)
+```
+
+```
+## [1] 10766.19
+```
+
+```r
+median(StepsTotal$steps)
+```
+
+```
+## [1] 10765
+```
 
 
 

@@ -5,9 +5,9 @@ output:
     keep_md: true
 ---
 
-
 ## Loading and preprocessing the data
-###In this preprocessing step, the working directory was set, data was unzipped and lattice is being utilized
+    ###In this preprocessing step, working directory was set, data was unzipped and lattice package 
+    is being utilized
 ```{r}
 getwd()
 setwd("C:/Users/Suresh/RepData_PeerAssessment1")
@@ -22,6 +22,13 @@ activity$date <- as.Date(activity$date, "%Y-%m-%d")
 
 
 ## What is mean total number of steps taken per day?
+```{r}
+StepsTotal <- aggregate(steps ~ date, data = activity, sum, na.rm = TRUE)
+hist(StepsTotal$steps, main = "Total steps by day", xlab = "day", col = "green")
+mean(StepsTotal$steps)
+median(StepsTotal$steps)
+
+```
 
 
 
