@@ -46,6 +46,34 @@ names(max_interval)
 
 
 ## Imputing missing values
+```{r}
+activity_NA <- sum(is.na(activity))
+activity_NA
+
+StepsAverage <- aggregate(steps ~ interval, data = activity, FUN = mean)
+fillNA <- numeric()
+    for (i in 1:nrow(activity))
+        {
+    obs <- activity[i, ]
+    if (is.na(obs$steps)) {
+        steps <- subset(StepsAverage, interval == obs$interval)$steps
+        } 
+    else 
+    {
+        steps <- obs$steps
+    }
+    fillNA <- c(fillNA, steps)
+        }
+
+new_activity <- activity
+new_activity$steps <- fillNA
+
+StepsTotal2 <- aggregate(steps ~ date, data = new_activity, sum, na.rm = TRUE)
+hist(StepsTotal2$steps, main = "Total steps by day", xlab = "day", col = "purple")
+    mean(StepsTotal2$steps)
+    median(StepsTotal2$steps)
+
+```
 
 
 

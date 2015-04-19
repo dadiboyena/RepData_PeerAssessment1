@@ -75,7 +75,7 @@ median(StepsTotal$steps)
 ```r
 time_series <- tapply(activity$steps, activity$interval, mean, na.rm = TRUE)
 plot(row.names(time_series), time_series, type = "l", xlab = "5-min interval", 
-     ylab = "Average across all Days", main = "Average number of steps taken", 
+     ylab = "Avg. across all Days", main = "Avg. number of steps taken", 
      col = "magenta")
 ```
 
@@ -93,6 +93,56 @@ names(max_interval)
 
 
 ## Imputing missing values
+
+```r
+activity_NA <- sum(is.na(activity))
+activity_NA
+```
+
+```
+## [1] 2304
+```
+
+```r
+StepsAverage <- aggregate(steps ~ interval, data = activity, FUN = mean)
+fillNA <- numeric()
+    for (i in 1:nrow(activity))
+        {
+    obs <- activity[i, ]
+    if (is.na(obs$steps)) {
+        steps <- subset(StepsAverage, interval == obs$interval)$steps
+        } 
+    else 
+    {
+        steps <- obs$steps
+    }
+    fillNA <- c(fillNA, steps)
+        }
+
+new_activity <- activity
+new_activity$steps <- fillNA
+
+StepsTotal2 <- aggregate(steps ~ date, data = new_activity, sum, na.rm = TRUE)
+hist(StepsTotal2$steps, main = "Total steps by day", xlab = "day", col = "purple")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
+
+```r
+    mean(StepsTotal2$steps)
+```
+
+```
+## [1] 10766.19
+```
+
+```r
+    median(StepsTotal2$steps)
+```
+
+```
+## [1] 10766.19
+```
 
 
 
