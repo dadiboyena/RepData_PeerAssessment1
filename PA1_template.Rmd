@@ -36,7 +36,7 @@ median(StepsTotal$steps)
 ```{r}
 time_series <- tapply(activity$steps, activity$interval, mean, na.rm = TRUE)
 plot(row.names(time_series), time_series, type = "l", xlab = "5-min interval", 
-     ylab = "Average across all Days", main = "Average number of steps taken", 
+     ylab = "Avg. across all Days", main = "Avg. number of steps taken", 
      col = "magenta")
 max_interval <- which.max(time_series)
 names(max_interval)
